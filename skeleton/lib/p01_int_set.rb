@@ -75,20 +75,23 @@ class ResizingIntSet
   end
 
   def insert(num)
-    # bucket = num % 20
-    store[num] << num
-    @count = count + 1
+    if !include?(num)
+      @count = count + 1
+      resize! if count > store.length
+      bucket = num % store.length
+      store[bucket] << num
+    end
   end
 
   def remove(num)
-    # bucket = num % 20
-    @count =  count - 1 if store[num].delete(num) 
+    bucket = num % store.length
+    @count =  count - 1 if store[bucket].delete(num) 
 
   end
 
   def include?(num)
-    # bucket = num % 20
-    store[num].include?(num)
+    bucket = num % store.length
+    store[bucket].include?(num)
   end
 
   private
@@ -102,8 +105,7 @@ class ResizingIntSet
   end
 
   def resize!
-    # if count <= store.length
-    
+    num_buckets.times {store << Array.new()}
   end
 
 end
