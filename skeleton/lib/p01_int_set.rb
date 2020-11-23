@@ -11,11 +11,13 @@ class MaxIntSet
   end
 
   def remove(num)
+    validate!(num)
+    store[num] = false
   end
 
   def include?(num)
-    
- 
+    validate!(num)
+    store[num]
   end
 
   private
@@ -31,17 +33,26 @@ end
 
 
 class IntSet
+
+  attr_reader :store
+
   def initialize(num_buckets = 20)
     @store = Array.new(num_buckets) { Array.new }
   end
 
   def insert(num)
+    bucket = num % 20
+    store[bucket] << num
   end
 
   def remove(num)
+    bucket = num % 20
+    store[bucket].delete(num)
   end
 
   def include?(num)
+    bucket = num % 20
+    store[bucket].include?(num)
   end
 
   private
