@@ -102,5 +102,8 @@ class ResizingIntSet
   end
 
   def resize!
+    # if count <= store.length
+    
   end
+
 end
