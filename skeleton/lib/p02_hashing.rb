@@ -5,13 +5,14 @@ end
 class Array
   def hash
     self << 1 if self.empty?
-    h = self.map {|ele| (ele * self.index(ele)).hash}
+    h = self.map {|ele| (ele ** self.index(ele)).hash}
     h.inject {|acc, ele| acc ^ ele}
   end
 end
 
 class String
   def hash
+    self.split("").map{|ele| ele.to_i}
 
   end
 end
@@ -23,3 +24,5 @@ class Hash
     0
   end
 end
+
+p ("Hello").hash
