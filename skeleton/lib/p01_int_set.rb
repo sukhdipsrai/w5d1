@@ -105,7 +105,17 @@ class ResizingIntSet
   end
 
   def resize!
+    old_store = store.dup
     num_buckets.times {store << Array.new()}
+    
+    old_store.each do |sub_arr|
+      sub_arr.each do |item|
+          bucket = item % old_store.length
+          store[bucket].delete(item) 
+          bucket = item % store.length
+          store[bucket] << item
+      end
+    end
   end
 
 end
